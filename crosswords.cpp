@@ -68,6 +68,21 @@ namespace crosswords
             }
         }
 
+        void print()
+        {
+            std::cout << '\n';
+            for (int i = 0; i < 4; i++)
+            {
+                std::cout << '[';
+                for (int j = 0; j < 4; j++)
+                {
+                    std::cout << board[i][j];
+                }
+                std::cout << "]\n";
+            }
+            std::cout << '\n';
+        }
+
         bool addRow(int R, const wordList &inList, int A)
         {
             char B = board[R][A];
