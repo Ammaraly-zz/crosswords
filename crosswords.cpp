@@ -30,7 +30,7 @@ namespace crosswords
                 }
             }
         }
-                ~wordList()
+        ~wordList()
         {
             LOG("wordList Destroyed!");
         }
@@ -44,9 +44,10 @@ namespace crosswords
     class puzzle
     {
         char board[4][4];
+        int puzzleSeed;
 
     public:
-        puzzle()
+        puzzle(int P) : puzzleSeed(P)
         {
             reset();
         }
@@ -66,7 +67,39 @@ namespace crosswords
                 }
             }
         }
+        bool addRow(int R, const wordList &inList, int A)
+        {
+            char B = board[R][A];
+            if (B == ' ')
+            {
+                B = puzzleSeed % 26 + 65;
+            }
+            auto fetched = inList.fetch(A, B);
+            if (fetched.empty())
+            {
+                return 0;
+            }
+            setRow(R, fetched[puzzleSeed % fetched.size()]);
+            return 1;
+        }
 
+        bool addColumn(int C, const wordList &inList, int A)
+        {
+            char B = board[A][C];
+            if (B == ' ')
+            {
+                B = puzzleSeed % 26 + 65;
+            }
+            auto fetched = inList.fetch(A, B);
+            if (fetched.empty())
+            {
+                return 0;
+            }
+            setRow(C, fetched[puzzleSeed % fetched.size()]);
+            return 1;
+        }
+
+    private:
         void setRow(int R, std::string S)
         {
             for (int i = 0; i < 4; i++)
@@ -101,6 +134,6 @@ int main(int argc, char *argv[])
         return 69;
     }
     crosswords::wordList splitWordList(wordListFile);
-    crosswords::puzzle FourCross; 
+    crosswords::puzzle FourCross(0);
     return 0;
 }
