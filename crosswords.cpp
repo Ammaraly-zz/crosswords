@@ -424,6 +424,10 @@ namespace crosswords
 
 int main(int argc, char *argv[])
 {
+    if(argc != 2) {
+        std::cout << "Crossword 4x4 Puzzle Generator V1.0\nUsage: ./crosswords [file.txt]\n";
+        return -1;
+    }
     crosswords::Timer _Timer;
     bool filecheck = access(argv[1], F_OK);
     std::ifstream wordListFile;
