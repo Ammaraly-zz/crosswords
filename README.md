@@ -19,7 +19,7 @@ It uses a 2d array of vectors with dimensions 4x26. The 4 MxN where (M=0-3,N=0-2
 words of which the (M+1)th letter is the (N+1)th english alphabet.
 for example:
 ```
-example_array[0][0]="AMIR",example_array[1][0]="BARD",example_array[2][0]="BRAD".
+example_array[0][0]="AMIR",example_array[1][0]="BARD",example_array[2][0]="BRAD"
 example_array[0][2]="COOK",example_array[1][2]="ACID",example_array[2][2]="FACE" 
 ```
 It then takes a seed generated from the date and number of failed attempts to select a unique starting word and populates a row with it. After that it tries to fill columns and rows in alternating fashion with valid words. If it failes to find a valid word to fill a row or column, it resets the puzzle and starts populating the puzzle again with incremented fail counter.
