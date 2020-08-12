@@ -47,3 +47,4 @@ The source for the words used is: _[source](http://www.scrabble.org.au/words/fou
 5) Implementation of puzzle datastructure and methods ~ 3 hour(s).
 6) Implementation of puzzle generation algorithm ~ 2.5 hour(s)
 ```
+_(This comprises strictly of time spent actively on the problem)_
