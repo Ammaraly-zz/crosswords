@@ -15,7 +15,13 @@ Usage: ./crosswords [file.txt]
 
 ## Algorithm
 1- It uses a 2d array of vectors with dimensions 4x26.
+<<<<<<< HEAD
 2- The 4 MxN where (M=0-3,N=0-25) arrays are sorted in a sense that it's Nth array contains all
+||||||| f05f601
+2- The 4 [MxN](M=0-3,N=0-25) arrays are sorted in a sense that it's Nth array contains all.
+=======
+2- The 4 [MxN](M=0-3,N=0-25) arrays are sorted in a sense that it's Nth array contains all
+>>>>>>> ae9d90c621b2fbcac59f95413f6505629ef4fb5e
 words of which the (M+1)th letter is the (N+1)th english alphabet.
 for example:
 ```
