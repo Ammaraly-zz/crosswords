@@ -14,3 +14,7 @@ Usage: ./crosswords [file.txt]
 ```
 
 ## Algorithm
+```
+1- It uses a 2d array of vectors with dimensions 4x26.
+2- The 4 [MxN](M=0-3,N=0-25) arrays are sorted in a sense that it's Nth array contains all words of which the (M+1)th letter is the (N+1)th english alphabet.
+```
