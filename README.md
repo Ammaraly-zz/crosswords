@@ -38,7 +38,7 @@ AMAS
 ```
 The source for the words used is: _[source](http://www.scrabble.org.au/words/fours.htm)_
 
-### Time Splent Breakdown
+### Time Spent Breakdown
 ```
 1) Understanding the problem ~ 1 hour(s).
 2) JS script ~ 1.5 hour(s).
