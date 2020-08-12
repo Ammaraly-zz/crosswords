@@ -30,11 +30,57 @@ namespace crosswords
                 }
             }
         }
-
-        const std::vector<std::string> & fetch(int listNo, char Letter) const {
-            return lists[(listNo-1)%4][(Letter - 65)%26];
+                ~wordList()
+        {
+            LOG("wordList Destroyed!");
         }
-        
+
+        const std::vector<std::string> &fetch(int listNo, char Letter) const
+        {
+            return lists[(listNo - 1) % 4][(Letter - 65) % 26];
+        }
+    };
+
+    class puzzle
+    {
+        char board[4][4];
+
+    public:
+        puzzle()
+        {
+            reset();
+        }
+
+        ~puzzle()
+        {
+            LOG("Puzzle Destroyed!");
+        }
+
+        void reset()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    board[i][j] = ' ';
+                }
+            }
+        }
+
+        void setRow(int R, std::string S)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                board[R][i] = S[i];
+            }
+        }
+        void setColumn(int C, std::string S)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                board[i][C] = S[i];
+            }
+        }
     };
 }; // namespace crosswords
 
@@ -55,10 +101,6 @@ int main(int argc, char *argv[])
         return 69;
     }
     crosswords::wordList splitWordList(wordListFile);
-
-    for (std::string word : splitWordList.fetch(4,'C'))
-    {
-        LOG(word);
-    }
+    crosswords::puzzle FourCross; 
     return 0;
 }
