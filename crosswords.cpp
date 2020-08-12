@@ -45,7 +45,7 @@ namespace crosswords
     {
         char board[4][4];
         int puzzleSeed;
-
+        int failes = 0;
     public:
         puzzle(int P) : puzzleSeed(P)
         {
@@ -82,7 +82,74 @@ namespace crosswords
             }
             std::cout << '\n';
         }
+        
+        int populateRow(int R, const wordList &inList) {
+            bool filledColumns[4] ={ 0, 0, 0, 0 };
+            int C[4] ={ -1, -1, -1 };
+            int sum = 0;
+            for (int i = 0; i < 4; i++) {
+                filledColumns[i] = board[R][i] != ' ';
+                if (filledColumns[i]) {
+                    C[sum] = i;
+                    sum++;
+                }
+            }
+            sum = 0;
+            for (int i = 0; i < 4; i++) {
+                sum+=filledColumns[i];
+            }
+            if (sum == 0) {
+                return addRow(R, inList, 0);
+            }
+            if (sum == 1) {
+                return addRow(R, inList, C[0]);
+            }
+            if (sum == 2) {
+                return addRow(R, inList, C[0], C[1]);
+            }
+            if (sum == 3) {
+                return addRow(R, inList, C[0], C[1], C[2]);
+            }
+            if (sum == 4) {
+                return checkRow(R, inList);
+            }
+            return 0;
+        }
 
+        int populateColumn(int C, const wordList & inList) {
+            bool filledRows[4] ={ 0, 0, 0, 0 };
+            int R[4] ={ -1, -1, -1 };
+            int sum = 0;
+            for (int i = 0; i < 4; i++) {
+                filledRows[i] = board[i][C] != ' ';
+                if (filledRows[i]) {
+                    R[sum] = i;
+                    sum++;
+                }
+            }
+            sum = 0;
+            for (int i = 0; i < 4; i++) {
+                sum+=filledRows[i];
+            }
+            if (sum == 0) {
+                return addColumn(C, inList, 0);
+            }
+            if (sum == 1) {
+                return addColumn(C, inList, R[0]);
+            }
+            if (sum == 2) {
+                return addColumn(C, inList, R[0], R[1]);
+            }
+            if (sum == 3) {
+                return addColumn(C, inList, R[0], R[1], R[2]);
+            }
+            if (sum == 4) {
+                return checkColumn(C, inList);
+            }
+            return 0;
+        }
+
+        private:
         bool addRow(int R, const wordList &inList, int A)
         {
             char B = board[R][A];
@@ -93,6 +160,7 @@ namespace crosswords
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
             {
+                failes++;
                 return 0;
             }
             setRow(R, fetched[puzzleSeed % fetched.size()]);
@@ -116,6 +184,7 @@ namespace crosswords
             }
             if (S == "")
             {
+                failes++;
                 return 0;
             }
             setRow(R, S);
@@ -148,6 +217,7 @@ namespace crosswords
             }
             if (S == "")
             {
+                failes++;
                 return 0;
             }
             setRow(R, S);
@@ -164,6 +234,7 @@ namespace crosswords
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
             {
+                failes++;
                 return 0;
             }
             setColumn(C, fetched[puzzleSeed % fetched.size()]);
@@ -187,6 +258,7 @@ namespace crosswords
             }
             if (S == "")
             {
+                failes++;
                 return 0;
             }
             setColumn(C, S);
@@ -219,13 +291,13 @@ namespace crosswords
             }
             if (S == "")
             {
+                failes++;
                 return 0;
             }
             setColumn(C, S);
             return 1;
         }
 
-    private:
         void setRow(int R, std::string S)
         {
             for (int i = 0; i < 4; i++)
@@ -239,6 +311,37 @@ namespace crosswords
             {
                 board[i][C] = S[i];
             }
+        }
+
+                bool checkColumn(int C, const wordList &inList) {
+            std::string S;
+            for (int i = 0; i < 4;i++) {
+                S[i] = board[i][C];
+            }
+            auto fetched = inList.fetch(0, S[0]);
+            for (auto word:fetched) {
+                if (word == S) {
+                    return 1;
+                }
+            }
+            failes++;
+            return 0;
+        }
+
+        bool checkRow(int R, const wordList &inList) {
+            std::string S;
+            for (int i = 0; i < 4;i++) {
+                S+=board[R][i];
+            }
+            S[4] = '\0';
+            auto fetched = inList.fetch(0, S[0]);
+            for (auto word:fetched) {
+                if (word == S) {
+                    return 1;
+                }
+            }
+            failes++;
+            return 0;
         }
     };
 }; // namespace crosswords
