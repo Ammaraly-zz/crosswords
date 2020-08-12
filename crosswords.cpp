@@ -11,11 +11,12 @@
 #include <unistd.h>
 #include<fstream>
 #include<vector>
+#include<array>
 
 int main(int argc, char* argv[]) {
      bool filecheck = access(argv[1], F_OK);
      std::ifstream wordListFile;
-     std::vector<std::string> wordList;
+     std::array<std::vector<std::string>,26> splitWordList;
      std::string line;
 
      if(!filecheck) {
@@ -27,10 +28,10 @@ int main(int argc, char* argv[]) {
          return 69;
      }
      while(std::getline(wordListFile,line)) {
-         wordList.push_back(line);
+         splitWordList[line[0]-65].push_back(line);
      }
 
-     for(std::string word : wordList) {
+     for(std::string word : splitWordList['C'-65]) {
          LOG(word);
      }
      return 0;
