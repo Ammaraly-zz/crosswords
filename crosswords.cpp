@@ -360,6 +360,7 @@ namespace crosswords
             {
                 S[i] = board[i][C];
             }
+            S[4] = '\0';
             auto fetched = inList.fetch(0, S[0]);
             for (auto word : fetched)
             {
@@ -424,9 +425,10 @@ namespace crosswords
 
 int main(int argc, char *argv[])
 {
-    if(argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Crossword 4x4 Puzzle Generator V1.0\nUsage: ./crosswords [file.txt]\n";
-        return -1;
+        return 1;
     }
     crosswords::Timer _Timer;
     bool filecheck = access(argv[1], F_OK);
@@ -441,7 +443,7 @@ int main(int argc, char *argv[])
     else
     {
         std::cout << "[ERROR] NO SUCH FILE!\n";
-        return 69;
+        return 2;
     }
     crosswords::wordList splitWordList(wordListFile);
     crosswords::puzzle FourCross = crosswords::generatePuzzle(splitWordList);
