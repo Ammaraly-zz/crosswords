@@ -41,10 +41,10 @@ The source for the words used is: _[source](http://www.scrabble.org.au/words/fou
 ### Time Spent Breakdown
 ```
 1) Understanding the problem ~ 1 hour(s).
-2) JS script ~ 1.5 hour(s).
-3) Design of basic non seeded solution ~ 2 hour(s).
-4) Implementation of wordList datastructure ~ 1.5 hour(s).
-5) Implementation of puzzle datastructure and methods ~ 3 hour(s).
-6) Implementation of puzzle generation algorithm ~ 2.5 hour(s)
+2) JS script for word scraping from source~ 1.5 hour(s).
+3) Design of basic non unique randomized solution ~ 2 hour(s).
+4) Implementation of wordList datastructure to store words effectively~ 1.5 hour(s).
+5) Implementation of puzzle datastructure and methods for row and column operations~ 3 hour(s).
+6) Implementation of puzzle generation algorithm for unique solution depending on date~ 2.5 hour(s)
 ```
 _(This comprises strictly of time spent actively on the problem)_
