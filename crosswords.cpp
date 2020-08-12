@@ -13,11 +13,30 @@
 #include <vector>
 #include <array>
 
+namespace crosswords
+{
+    class wordList
+    {
+    public:
+        std::array<std::array<std::vector<std::string>, 26>, 4> list;
+        wordList(std::ifstream &file)
+        {
+            std::string line;
+            while (std::getline(file, line))
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    list[i][line[i] - 65].push_back(line);
+                }
+            }
+        }
+    };
+}; // namespace crosswords
+
 int main(int argc, char *argv[])
 {
     bool filecheck = access(argv[1], F_OK);
     std::ifstream wordListFile;
-    std::array<std::array<std::vector<std::string>, 26>, 4> splitWordList;
     std::string line;
 
     if (!filecheck)
@@ -30,15 +49,9 @@ int main(int argc, char *argv[])
         std::cout << "[ERROR] NO SUCH FILE!\n";
         return 69;
     }
-    while (std::getline(wordListFile, line))
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            splitWordList[i][line[i] - 65].push_back(line);
-        }
-    }
+    crosswords::wordList splitWordList(wordListFile);
 
-    for (std::string word : splitWordList[3]['C' - 65])
+    for (std::string word : splitWordList.list[3]['C' - 65])
     {
         LOG(word);
     }
