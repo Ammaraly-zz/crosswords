@@ -12,10 +12,29 @@
 #include <fstream>
 #include <vector>
 #include <array>
-#include<chrono>
+#include <chrono>
 
 namespace crosswords
 {
+    struct Timer
+    {
+        std::chrono::high_resolution_clock::time_point start, end;
+        std::chrono::duration<float> duration;
+
+        Timer()
+        {
+            start = std::chrono::high_resolution_clock::now();
+        }
+
+        ~Timer()
+        {
+            end = std::chrono::high_resolution_clock::now();
+            duration = end - start;
+            float ms = duration.count() * 1000;
+            std::cout << "[PROGRAM DURATION] " << ms << "ms\n";
+        }
+    };
+
     class wordList
     {
         std::array<std::array<std::vector<std::string>, 26>, 4> lists;
@@ -45,6 +64,7 @@ namespace crosswords
         time_t now = time(0);
         std::tm *date = localtime(&now);
         int puzzleSeed = date->tm_year * 100000 + date->tm_mon * 10000 + date->tm_mday * 1000;
+
     public:
         puzzle()
         {
@@ -68,6 +88,8 @@ namespace crosswords
 
         void print()
         {
+            std::cout << "[DATE: " << date->tm_mday << '-'
+                      << date->tm_mon << '-' << date->tm_year + 1900 << "]\n";
             std::cout << '\n';
             for (int i = 0; i < 4; i++)
             {
@@ -78,6 +100,21 @@ namespace crosswords
                 std::cout << '\n';
             }
             std::cout << '\n';
+        }
+
+        void toFile(std::string fileName)
+        {
+            std::ofstream myFile(fileName);
+            myFile << '\n';
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    myFile << board[i][j];
+                }
+                myFile << '\n';
+            }
+            myFile << '\n';
         }
 
         int populateRow(int R, const wordList &inList)
@@ -99,27 +136,21 @@ namespace crosswords
             {
                 sum += filledColumns[i];
             }
-            if (sum == 0)
+            switch (sum)
             {
+            case 0:
                 return addRow(R, inList, 0);
-            }
-            if (sum == 1)
-            {
+            case 1:
                 return addRow(R, inList, C[0]);
-            }
-            if (sum == 2)
-            {
+            case 2:
                 return addRow(R, inList, C[0], C[1]);
-            }
-            if (sum == 3)
-            {
+            case 3:
                 return addRow(R, inList, C[0], C[1], C[2]);
-            }
-            if (sum == 4)
-            {
+            case 4:
                 return checkRow(R, inList);
+            default:
+                return 0;
             }
-            return 0;
         }
 
         int populateColumn(int C, const wordList &inList)
@@ -141,27 +172,21 @@ namespace crosswords
             {
                 sum += filledRows[i];
             }
-            if (sum == 0)
+            switch (sum)
             {
+            case 0:
                 return addColumn(C, inList, 0);
-            }
-            if (sum == 1)
-            {
+            case 1:
                 return addColumn(C, inList, R[0]);
-            }
-            if (sum == 2)
-            {
+            case 2:
                 return addColumn(C, inList, R[0], R[1]);
-            }
-            if (sum == 3)
-            {
+            case 3:
                 return addColumn(C, inList, R[0], R[1], R[2]);
-            }
-            if (sum == 4)
-            {
+            case 4:
                 return checkColumn(C, inList);
+            default:
+                return 0;
             }
-            return 0;
         }
 
     private:
@@ -170,7 +195,7 @@ namespace crosswords
             char B = board[R][A];
             if (B == ' ')
             {
-                B = (puzzleSeed+failes) % 26 + 65;
+                B = (puzzleSeed + failes) % 26 + 65;
             }
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
@@ -178,7 +203,7 @@ namespace crosswords
                 failes++;
                 return 0;
             }
-            setRow(R, fetched[(puzzleSeed+failes) % fetched.size()]);
+            setRow(R, fetched[(puzzleSeed + failes) % fetched.size()]);
             return 1;
         }
 
@@ -244,7 +269,7 @@ namespace crosswords
             char B = board[A][C];
             if (B == ' ')
             {
-                B = (puzzleSeed+failes) % 26 + 65;
+                B = (puzzleSeed + failes) % 26 + 65;
             }
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
@@ -252,7 +277,7 @@ namespace crosswords
                 failes++;
                 return 0;
             }
-            setColumn(C, fetched[(puzzleSeed+failes) % fetched.size()]);
+            setColumn(C, fetched[(puzzleSeed + failes) % fetched.size()]);
             return 1;
         }
 
@@ -399,6 +424,7 @@ namespace crosswords
 
 int main(int argc, char *argv[])
 {
+    crosswords::Timer _Timer;
     bool filecheck = access(argv[1], F_OK);
     std::ifstream wordListFile;
     std::string line;
@@ -416,5 +442,6 @@ int main(int argc, char *argv[])
     crosswords::wordList splitWordList(wordListFile);
     crosswords::puzzle FourCross = crosswords::generatePuzzle(splitWordList);
     FourCross.print();
+    FourCross.toFile("Output.txt");
     return 0;
 }
