@@ -2,7 +2,7 @@
 _owner:`Ammar Ali`_ _contact:`m.ammarali98@gmail.com`_ *or* _[LinkedIn](https://www.linkedin.com/in/mammarali98)_
 
 ## Description
-This project will generate a unique 4x4 crosswords puzzle every day using word list from an input .txt file.
+This code will generate a unique 4x4 crosswords puzzle every day using word list from an input .txt file.
 
 ### Prerequisites
 ```
@@ -35,4 +35,15 @@ FIST
 AMAS
 
 [PROGRAM DURATION] 52.0367ms
+```
+The source for the words used is: _[source](http://www.scrabble.org.au/words/fours.htm)_
+
+### Time Splent Breakdown
+```
+1) Understanding the problem ~ 1 hour(s).
+2) JS script ~ 1.5 hour(s).
+3) Design of basic non seeded solution ~ 2 hour(s).
+4) Implementation of wordList datastructure ~ 1.5 hour(s).
+5) Implementation of puzzle datastructure and methods ~ 3 hour(s).
+6) Implementation of puzzle generation algorithm ~ 2.5 hour(s)
 ```
