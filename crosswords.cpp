@@ -18,7 +18,7 @@ namespace crosswords
     class wordList
     {
     public:
-        std::array<std::array<std::vector<std::string>, 26>, 4> list;
+        std::array<std::array<std::vector<std::string>, 26>, 4> lists;
         wordList(std::ifstream &file)
         {
             std::string line;
@@ -26,10 +26,15 @@ namespace crosswords
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    list[i][line[i] - 65].push_back(line);
+                    lists[i][line[i] - 65].push_back(line);
                 }
             }
         }
+
+        const std::vector<std::string> & fetch(int listNo, char Letter) const {
+            return lists[(listNo-1)%4][(Letter - 65)%26];
+        }
+        
     };
 }; // namespace crosswords
 
@@ -51,7 +56,7 @@ int main(int argc, char *argv[])
     }
     crosswords::wordList splitWordList(wordListFile);
 
-    for (std::string word : splitWordList.list[3]['C' - 65])
+    for (std::string word : splitWordList.fetch(4,'C'))
     {
         LOG(word);
     }
