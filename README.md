@@ -17,7 +17,7 @@ Usage: ./crosswords [file.txt]
 
 ## Algorithm
 It uses a 2d array of string vectors with dimensions 4x26. The 4 MxN arrays (where {M=0-3,N=0-25}) are arranged in a sense that Nth sub-array of Mth array contains all words of which the (M+1)th letter is the (N+1)th english alphabet.
-for example:
+For example:
 ```
 example_array[0][0]="AMIR",example_array[1][0]="BARD",example_array[2][0]="BRAD"
 example_array[0][2]="COOK",example_array[1][2]="ACID",example_array[2][2]="FACE" 
