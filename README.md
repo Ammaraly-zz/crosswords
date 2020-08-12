@@ -24,8 +24,7 @@ example_array[0][2]="COOK",example_array[1][2]="ACID",example_array[2][2]="FACE"
 ```
 It then takes a seed generated from the date and number of failed attempts to select a unique starting word and populates a row with it. After that it tries to fill columns and rows in alternating fashion with valid words. If it failes to find a valid word to fill a row or column, it resets the puzzle and starts populating the puzzle again with incremented fail counter.
 Upon finding a valid puzzle it prints it in the screen and into a file named "Output.txt".
-The output on screen looks like this:
-for DATE: 13-7-2020:
+The output on screen looks like this for date: 13-7-2020:
 ```
 [Successful]
 [DATE: 13-7-2020]
@@ -37,7 +36,7 @@ AMAS
 
 [PROGRAM DURATION] 52.0367ms
 ```
-for DATE: 26-7-2020:
+for date: 26-7-2020:
 ```
 [Successful]
 [DATE: 26-7-2020]
