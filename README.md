@@ -1,5 +1,6 @@
-# 4x4 Crosswords Puzzle Generator
 _owner:`Ammar Ali`_ _contact:`m.ammarali98@gmail.com`_ *or* _[LinkedIn](https://www.linkedin.com/in/mammarali98)_
+
+# 4x4 Crosswords Puzzle Generator
 
 ## Description
 This code will generate a unique 4x4 crosswords puzzle every day using word list from an input .txt file.
