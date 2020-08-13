@@ -60,7 +60,7 @@ namespace crosswords
     class puzzle
     {
         char board[4][4];
-        int failes = 0;
+        int fails = 0;
         time_t now = time(0);
         std::tm *date = localtime(&now);
         int puzzleSeed = date->tm_year * 100000 + date->tm_mon * 10000 + date->tm_mday * 1000;
@@ -83,7 +83,7 @@ namespace crosswords
 
         int failedAttempts()
         {
-            return failes;
+            return fails;
         }
 
         void print()
@@ -195,15 +195,15 @@ namespace crosswords
             char B = board[R][A];
             if (B == ' ')
             {
-                B = (puzzleSeed + failes) % 26 + 65;
+                B = (puzzleSeed + fails) % 26 + 65;
             }
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
             {
-                failes++;
+                fails++;
                 return 0;
             }
-            setRow(R, fetched[(puzzleSeed + failes) % fetched.size()]);
+            setRow(R, fetched[(puzzleSeed + fails) % fetched.size()]);
             return 1;
         }
 
@@ -224,7 +224,7 @@ namespace crosswords
             }
             if (S == "")
             {
-                failes++;
+                fails++;
                 return 0;
             }
             setRow(R, S);
@@ -257,7 +257,7 @@ namespace crosswords
             }
             if (S == "")
             {
-                failes++;
+                fails++;
                 return 0;
             }
             setRow(R, S);
@@ -269,15 +269,15 @@ namespace crosswords
             char B = board[A][C];
             if (B == ' ')
             {
-                B = (puzzleSeed + failes) % 26 + 65;
+                B = (puzzleSeed + fails) % 26 + 65;
             }
             auto fetched = inList.fetch(A, B);
             if (fetched.empty())
             {
-                failes++;
+                fails++;
                 return 0;
             }
-            setColumn(C, fetched[(puzzleSeed + failes) % fetched.size()]);
+            setColumn(C, fetched[(puzzleSeed + fails) % fetched.size()]);
             return 1;
         }
 
@@ -298,7 +298,7 @@ namespace crosswords
             }
             if (S == "")
             {
-                failes++;
+                fails++;
                 return 0;
             }
             setColumn(C, S);
@@ -331,7 +331,7 @@ namespace crosswords
             }
             if (S == "")
             {
-                failes++;
+                fails++;
                 return 0;
             }
             setColumn(C, S);
@@ -369,7 +369,7 @@ namespace crosswords
                     return 1;
                 }
             }
-            failes++;
+            fails++;
             return 0;
         }
 
@@ -389,7 +389,7 @@ namespace crosswords
                     return 1;
                 }
             }
-            failes++;
+            fails++;
             return 0;
         }
     };
