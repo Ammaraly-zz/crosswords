@@ -50,6 +50,46 @@ BYES
 ```
 The source for the words used is: _[source](http://www.scrabble.org.au/words/fours.htm)_
 
+## Functions Description
+
+crosswords::wordList::fetch():
+```
+Arguments - int A, char B.
+Returns - const vector of all the words whose Ath letter is char B.
+
+```
+
+crosswords::puzzle::populateRow:
+```
+Arguments - int A, const wordList& B.
+Returns - 1 for success, 0 for failed and increments fails if failed.
+Operation - populates Ath row with a valid word from wordList B, if row is already completely filled then checks if the filled word is correct.
+
+```
+crosswords::puzzle::populateColumn:
+```
+Arguments - int A, const wordList& B.
+Returns - 1 for success, 0 for failed and increments fails if failed.
+Operation - populates Ath column with a valid word from wordList B, if column is already completely filled then checks if the filled word is correct.
+```
+crosswords::puzzle::print:
+```
+Arguments - void.
+Returns - void.
+Operation - prints the puzzle board on screen.
+```
+crosswords::puzzle::reset:
+```
+Arguments - void.
+Returns - void.
+Operation - resets the puzzle board (to spaces).
+```
+crosswords::puzzle::toFile:
+```
+Arguments - string filename.
+Returns - void.
+Operation - creates/overwrites filename.txt and stores current puzzle board in it.
+```
 ### Time Spent Breakdown
 ```
 1) Understanding the problem ~ 1 hour(s).
